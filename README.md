@@ -7,15 +7,12 @@
 [Andrea Kim](https://www.linkedin.com/in/andreakim91), [Niloufar Saharkhiz](https://www.linkedin.com/in/niloufar-saharkhiz/), [Elena Sizikova](https://esizikova.github.io/), [Miguel Lago](https://www.linkedin.com/in/milaan/), [Berkman Sahiner](https://www.linkedin.com/in/berkman-sahiner-6aa9a919/), [Jana Delfino](https://www.linkedin.com/in/janadelfino/), [Aldo Badano](https://www.linkedin.com/in/aldobadano/)
 
 International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI) 2024
-
-**Paper Link**: [TODO]()
  
-
 ![](./images/overview.png)
 
 The contributions of our work are:
 
-* We describe S-SYNTH, an open-source, flexible framework for creation of highly-detailed 3D skin models and digitally rendered synthetic images of iverse human skin tones, with full control of underlying parameters and the image formation process.
+* We describe S-SYNTH, an open-source, flexible framework for creation of highly-detailed 3D skin models and digitally rendered synthetic images of diverse human skin tones, with full control of underlying parameters and the image formation process.
   
 * We systematically evaluate S-SYNTH synthetic images for training and testing applications. Specifically, we show S-SYNTH synthetic images improve segmentation performance when only a limited set of real images is available for training. We also show comparative trends between S-SYNTH synthetic images and real-patient examples (according to skin color and lesion size) are similar.
 
@@ -23,9 +20,10 @@ The contributions of our work are:
 
 1. Framework
 2. Code
-3. Citation
-4. Related Links
-5. Disclaimer
+3. Data
+4. Citation
+5. Related Links
+6. Disclaimer
 
 ## Framework
 
@@ -38,11 +36,26 @@ S-SYNTH can be used to generate synthetic skin images with annotations (includin
 **Usage:** S-SYNTH relies on [Houdini](https://www.sidefx.com/) for creating of skin layers and [Mitsuba](https://mitsuba-renderer.org/) for rendering.
 
 ## Code
-The code will be available soon.
+Please see `code` directory for:
+- Code for generating materials, skin models, and synthetic skin lesions
+- Training of a segmentation model using associated images
+- Evaluating performance on real skin images from [HAM10K](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T) and [ISIC18](https://challenge.isic-archive.com/data/) datasets.
   
 
 ## Data
-Associated data for this repository, including pre-generated synthetic skin examples and their masks, can be found in a Huggingface dataset repo ([S-SYNTH data](https://huggingface.co/datasets/didsr/ssynth_data)). 
+Associated data for this repository, including pre-generated synthetic skin examples and their masks, can be found in a Hugging face dataset repo ([S-SYNTH data](https://huggingface.co/datasets/didsr/ssynth_data)). 
+
+
+<!--## Repository Structure
+
+```
+├── code
+|   ├── test.py                    
+├── examples                   
+├── images                                       
+├── LICENSE
+└── README.md
+```-->
 
 ## Citation
 ```
@@ -56,11 +69,8 @@ Associated data for this repository, including pre-generated synthetic skin exam
 }
 ```
 ## Related Links
-1. E. Sizikova, N. Saharkhiz, D. Sharma, M. Lago, B. Sahiner, J. G. Delfino, A. Badano. [Knowledge-based in silico models and dataset for the comparative evaluation of mammography AI for a range of breast characteristics, lesion conspicuities and doses](https://github.com/DIDSR/msynth-release). NeurIPS Datasets and Benchmarks Track 2023.
-2. [M-SYNTH: A Dataset for the Comparative Evaluation of Mammography AI](https://cdrh-rst.fda.gov/m-synth-dataset-comparative-evaluation-mammography-ai).
-1. [Virtual Imaging Clinical Trial for Regulatory Evaluation (VICTRE)](https://www.fda.gov/medical-devices/science-and-research-medical-devices/victre-silico-breast-imaging-pipeline).
-2. [FDA Catalog of Regulatory Science Tools to Help Assess New Medical Devices](https://www.fda.gov/medical-devices/science-and-research-medical-devices/catalog-regulatory-science-tools-help-assess-new-medical-devices).
-4. A. Badano, M. Lago, E. Sizikova, J. G. Delfino, S. Guan, M. A. Anastasio, B. Sahiner. [The stochastic digital human is now enrolling for in silico imaging trials—methods and tools for generating digital cohorts.](http://dx.doi.org/10.1088/2516-1091/ad04c0) Progress in Biomedical Engineering 2023.   
+1. [FDA Catalog of Regulatory Science Tools to Help Assess New Medical Devices](https://www.fda.gov/medical-devices/science-and-research-medical-devices/catalog-regulatory-science-tools-help-assess-new-medical-devices).
+2. A. Badano, M. Lago, E. Sizikova, J. G. Delfino, S. Guan, M. A. Anastasio, B. Sahiner. [The stochastic digital human is now enrolling for in silico imaging trials—methods and tools for generating digital cohorts.](http://dx.doi.org/10.1088/2516-1091/ad04c0) Progress in Biomedical Engineering 2023.   
 
 
 ## Disclaimer

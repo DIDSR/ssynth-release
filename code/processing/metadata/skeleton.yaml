@@ -1,0 +1,57 @@
+run:
+  device: 'cuda'
+  source_dir: "../../data/" #where splits and images/masks are located
+dataset:
+  input_size: 128
+
+model:
+  name: 'dsd_i01' # the model will save and load with this config associated with this name.
+  class: 'DermoSegDiff' # do not change this line unless you implement a new model inside models folder
+  params: # the class arguments defined above
+    dim_x: 16 #64 #128
+    dim_g: 8 #32 #64
+    channels_x: 1 # mask
+    channels_g: 3 # rgb-image
+    # init_dim: null
+    out_dim: 1
+    # dim_mults: [1, 2, 3, 4, 5, 6]
+    dim_x_mults: [1, 2, 3, 4, 05, 06]
+    dim_g_mults: [1, 2, 4, 8, 16, 32]
+    resnet_block_groups: 8
+
+diffusion:
+  schedule:
+    timesteps: 250
+    mode: "linear" # options: [linear, quadratic, cosine, sigmoid]
+    beta_start: 0.0004
+    beta_end: 0.08
+
+data_loader:
+  train: 
+    batch_size: 32
+    shuffle: true
+    # num_workers: 16
+    pin_memory: true
+  validation: 
+    batch_size: 32
+    shuffle: false
+    # num_workers: 16
+    pin_memory: true
+  test:
+    batch_size: 32
+    shuffle: false
+    # num_workers: 16
+    pin_memory: false
+
+training:
+  ema: # https://github.com/lucidrains/ema-pytorch
+    use: true
+    params:
+      beta: 0.9999
+      update_after_step: 500
+      update_every: 1
+      inv_gamma: 1.0 # inv_gamma (float): Inverse multiplicative factor of EMA warmup. Default: 1.
+      power: 0.9 # power (float): Exponential factor of EMA warmup. Default: 1.
+
+testing:
+  ensemble: 5
