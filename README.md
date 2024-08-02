@@ -10,7 +10,7 @@ International Conference on Medical Image Computing and Computer Assisted Interv
 
 - **Paper:** [https://arxiv.org/abs/2408.00191](https://arxiv.org/abs/2408.00191)
 - **Code:** [https://github.com/DIDSR/ssynth-release](https://github.com/DIDSR/ssynth-release)
-- **Data (Hugging Face):** [https://github.com/DIDSR/ssynth-release](https://huggingface.co/datasets/didsr/ssynth_data)
+- **Data (Hugging Face):** [https://huggingface.co/datasets/didsr/ssynth_data](https://huggingface.co/datasets/didsr/ssynth_data)
 
 
  
