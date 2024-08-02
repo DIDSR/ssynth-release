@@ -7,6 +7,12 @@
 [Andrea Kim](https://www.linkedin.com/in/andreakim91), [Niloufar Saharkhiz](https://www.linkedin.com/in/niloufar-saharkhiz/), [Elena Sizikova](https://esizikova.github.io/), [Miguel Lago](https://www.linkedin.com/in/milaan/), [Berkman Sahiner](https://www.linkedin.com/in/berkman-sahiner-6aa9a919/), [Jana Delfino](https://www.linkedin.com/in/janadelfino/), [Aldo Badano](https://www.linkedin.com/in/aldobadano/)
 
 International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI) 2024
+
+- **Paper:** [https://arxiv.org/abs/2408.00191](https://arxiv.org/abs/2408.00191)
+- **Code:** [https://github.com/DIDSR/ssynth-release](https://github.com/DIDSR/ssynth-release)
+- **Data (Hugging Face):** [https://github.com/DIDSR/ssynth-release](https://huggingface.co/datasets/didsr/ssynth_data)
+
+
  
 ![](./images/overview.png)
 
