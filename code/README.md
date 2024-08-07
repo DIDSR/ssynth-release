@@ -9,7 +9,7 @@
 
 - Clone repo:
    ```
-   git clone https://github.com/DIDSR/S-SYNTH.git
+   git clone https://github.com/DIDSR/ssynth-release.git
    ```
 
 - Setup hugging face token for data download:
