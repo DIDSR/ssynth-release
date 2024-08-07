@@ -16,7 +16,7 @@ consisting of both S-SYNTH images and their corresponding masks can be generated
 ## 1. Set up root folder path
 
    ```
-   cd S-SYNTH
+   cd ssynth-release
    CWD=$(pwd)
    ```
 
