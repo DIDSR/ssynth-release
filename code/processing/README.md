@@ -4,7 +4,7 @@ model.
 
 - Set up home folder path:
    ```
-   cd S-SYNTH
+   cd ssynth-release
    CWD=$(pwd)
    ```
 
