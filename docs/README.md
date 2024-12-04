@@ -13,7 +13,7 @@ International Conference on Medical Image Computing and Computer Assisted Interv
 - **Data:** [https://huggingface.co/datasets/didsr/ssynth_data](https://huggingface.co/datasets/didsr/ssynth_data)
 - **Demo:** [https://didsr.github.io/ssynth-release/](https://didsr.github.io/ssynth-release/)
 
-![](./images/overview.png)
+![](https://raw.githubusercontent.com/DIDSR/ssynth-release/main/images/overview.png)
 
 The contributions of our work are:
 
