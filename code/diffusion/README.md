@@ -7,7 +7,7 @@
     cd $CWD/code/diffusion
     ```
 ## Evaluate Model
-- Download HAM data (see instructions in TODO)
+- Download HAM data (see instructions in in ssynth-release/tree/main/code/processing/README.md)
 
 - Evaluate model:
     ```
