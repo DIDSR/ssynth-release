@@ -1,45 +1,40 @@
 # S-SYNTH: Knowledge-Based, Synthetic Generation of Skin Images
 
-**This repository contains code used in the paper:**
+## News
 
-"_S-SYNTH: Knowledge-Based, Synthetic Generation of Skin Images_"
+- May 6, 2026: extended IJCARS version available, demonstrating downstream training of diffusion models
+- August 7, 2024: initial release of S-SYNTH
 
-[Andrea Kim](https://www.linkedin.com/in/andreakim91), [Niloufar Saharkhiz](https://www.linkedin.com/in/niloufar-saharkhiz/), [Elena Sizikova](https://esizikova.github.io/), [Miguel Lago](https://www.linkedin.com/in/milaan/), [Berkman Sahiner](https://www.linkedin.com/in/berkman-sahiner-6aa9a919/), [Jana Delfino](https://www.linkedin.com/in/janadelfino/), [Aldo Badano](https://www.linkedin.com/in/aldobadano/)
+## Description
 
-International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI) 2024
+This repository contains code described in:
 
-- **Paper:** [https://arxiv.org/abs/2408.00191](https://arxiv.org/abs/2408.00191)
-- **Code:** [https://github.com/DIDSR/ssynth-release](https://github.com/DIDSR/ssynth-release)
-- **Data:** [https://huggingface.co/datasets/didsr/ssynth_data](https://huggingface.co/datasets/didsr/ssynth_data)
-- **Demo:** [https://didsr.github.io/ssynth-release/](https://didsr.github.io/ssynth-release/)
+1. Andrea Kim, Niloufar Saharkhiz, Elena Sizikova, Miguel Lago, Berkman Sahiner, Jana Delfino, Aldo Badano.
+   
+   ["S-SYNTH: Knowledge-Based, Synthetic Generation of Skin Images"](https://arxiv.org/abs/2408.00191)
+   
+   International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI) 2024
+2. Elena Sizikova, Niloufar Saharkhiz, Andrea Kim, Miguel Lago, Jana Delfino, Aldo Badano
+
+   ["Synthetic skin image generation using a physics-based, object-to-image computational pipeline"](https://doi.org/10.1007/s11548-026-03587-2)
+ 
+   International Journal of Computer Assisted Radiology and Surgery (IJCARS) 2026
+
+
+S-SYNTH is an open-source, flexible framework for creation of highly-detailed 3D skin models and digitally rendered synthetic images of diverse human skin tones, with full control of underlying parameters and the image formation process. 
 
 ![](./images/overview.png)
 
-The contributions of our work are:
-
-- We describe S-SYNTH, an open-source, flexible framework for creation of highly-detailed 3D skin models and digitally rendered synthetic images of diverse human skin tones, with full control of underlying parameters and the image formation process.
-- We systematically evaluate S-SYNTH synthetic images for training and testing applications. Specifically, we show S-SYNTH synthetic images improve segmentation performance when only a limited set of real images is available for training. We also show comparative trends between S-SYNTH synthetic images and real-patient examples (according to skin color and lesion size) are similar.
-
-## Table of Contents
-
-1. Framework
-2. Code
-3. Data
-4. Citation
-5. Related Links
-6. Disclaimer
-
-## Framework
-
-We present S-SYNTH, the first knowledge-based, adaptable open-source skin simulation framework to rapidly generate synthetic skin models and images using digital rendering of an anatomically inspired multi-layer, multi-component skin and growing lesion model. The skin model allows for controlled variation in skin appearance, such as skin color, presence of hair, lesion size, skin and lesion colors, and blood fraction among other parameters. We use this framework to study the effect of possible variations on the development and evaluation of AI models for skin lesion segmentation, and show that results obtained using synthetic data follow similar comparative trends as real dermatologic images, while mitigating biases and limitations from existing datasets including small dataset size, mislabeled examples, and lack of diversity.
-
-S-SYNTH can be used to generate synthetic skin images with annotations (including segmentation masks) with variations:
+S-SYNTH can be used to generate synthetic skin images with annotations (including segmentation masks) with variations in skin appearance, such as skin color, presence of hair, lesion size, skin and lesion colors, and blood fraction among other parameters. We use this framework to study the effect of possible variations on the development and evaluation of AI models for skin lesion segmentation, and show that results obtained using synthetic data follow similar comparative trends as real dermatologic images, while mitigating biases and limitations from existing datasets including small dataset size, mislabeled examples, and lack of diversity.
 
 ![](./images/variation.png)
 
-**Usage:** S-SYNTH relies on [Houdini](https://www.sidefx.com/) for creating of skin layers and [Mitsuba](https://mitsuba-renderer.org/) for rendering.
-
+S-SYNTH images can be used to create paired datasets to finetune diffusion models, teaching them concepts about skin imaging:
+![](./images/diffusion_experiment.png)
+   
 ## Code
+
+**Usage:** S-SYNTH relies on [Houdini](https://www.sidefx.com/) for creating of skin layers and [Mitsuba](https://mitsuba-renderer.org/) for rendering.
 
 Please see `code` directory for:
 
@@ -62,9 +57,21 @@ Associated data for this repository, including pre-generated synthetic skin exam
 └── README.md
 ```-->
 
+A visualization of sample resulting images is available in the demo: [https://didsr.github.io/ssynth-release/](https://didsr.github.io/ssynth-release/)
+
+
 ## Citation
 
 ```
+@article{sizikova2026synthetic,
+  title={Knowledge-based in silico models and dataset for the comparative evaluation of mammography AI for a range of breast characteristics, lesion conspicuities and doses},
+  author={Sizikova, Elena and Saharkhiz, Niloufar and Kim, Andrea and Lago, Miguel and Delfino, Jana G., and Badano, Aldo},
+  journal={International Journal of Computer Assisted Radiology and Surgery (IJCARS)},
+  volume={},
+  pages={},
+  year={2026}
+}
+
 @article{kim2024ssynth,
   title={Knowledge-based in silico models and dataset for the comparative evaluation of mammography AI for a range of breast characteristics, lesion conspicuities and doses},
   author={Kim, Andrea and Saharkhiz, Niloufar and Sizikova, Elena and Lago, Miguel, and Sahiner, Berkman and Delfino, Jana G., and Badano, Aldo},
