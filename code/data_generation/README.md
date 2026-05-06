@@ -16,7 +16,7 @@ consisting of both S-SYNTH images and their corresponding masks can be generated
 ## 1. Set up root folder path
 
    ```
-   cd ssynth-release
+   cd ssynth-dev
    CWD=$(pwd)
    ```
 
@@ -39,7 +39,7 @@ face ([ssynth_data/data/supporting_data/materials.zip](https://huggingface.co/da
   cd $CWD/code/data_generation
   python download_data.py --name 'materials.zip' --saveDir '../../' --unzip
   python download_data.py --name 'hdri.zip' --saveDir '../../' --unzip 
-  python download_data.py --name 'params_lists.zip' --saveDir '../../' -- unzip
+  python download_data.py --name 'params_lists.zip' --saveDir '../../' --unzip
   python download_data.py --name 'sample_data.csv' --saveDir '../../'
   ```
 
@@ -262,8 +262,5 @@ contain the spectral distribution of the absorption and scattering coefficients 
 Mitsuba 3 renderer. 
 
 
-
-
-
-
-
+## 5. Additional Analysis
+We provide a sample script for manipulating properties of skin, lesion, lighting, and camera `property_manipulation_example.ipynb`.

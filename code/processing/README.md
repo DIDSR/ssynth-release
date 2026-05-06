@@ -4,7 +4,7 @@ model.
 
 - Set up home folder path:
    ```
-   cd ssynth-release
+   cd ssynth-dev
    CWD=$(pwd)
    ```
 
@@ -33,6 +33,7 @@ model.
       wget https://isic-challenge-data.s3.amazonaws.com/2018/ISIC2018_Task1_Training_GroundTruth.zip
       unzip ISIC2018_Task1_Training_GroundTruth.zip
       ```
+
 - You need .txt files that lists the paths for the train, validation, and test splits of the image dataset. You can either download these text files from hugging face or generate them yourself. These files must be placed under `../../data/dataset_splits/`.
 
    - In order to use the pre-generated dataset split text files (e.g. ```all_tones_real_ISIC_1.0_add_synth_0.2```): 
@@ -43,6 +44,7 @@ model.
           python download_split.py --name $NAME --saveDir '../../'
           ``` 
    - To generate the dataset split text files, follow the instructions provided under “Split the Datasets into Training, Validation, and Test Sets.”
+
 
 ## Training/Testing Segmentation Model
 This code below is heavily based on the [DermsegDiff](https://github.com/xmindflow/DermoSegDiff) implementation of [1].
@@ -74,6 +76,7 @@ This code below is heavily based on the [DermsegDiff](https://github.com/xmindfl
 
     The results will be stored under `../../data/outputs/segmentation_results/` in the form of .csv files.
 
+
 ### Visualization:
 
 In order to visualize the results of the inference step, use visualization.ipynb script which will plot the results based on the values stored in the DataFrames during the test step.
@@ -81,6 +84,19 @@ In order to visualize the results of the inference step, use visualization.ipynb
 ```
 jupyter notebook visualization.ipynb
 ```
+
+### Check Significance:
+- Download sample result data:
+  ```
+  cd $CWD/code/processing
+  python download_sample_results.py --saveDir '../../'
+  ``` 
+
+- Evaluate t-test:
+
+  ```
+  jupyter notebook evaluate_significance.ipynb
+  ```
 
 ### Training Segmentation Model (DermoSegDiff):
 - Make sure the dataset split text files are located in `../../data/dataset_splits/`, as outlined in the "Setup" section.

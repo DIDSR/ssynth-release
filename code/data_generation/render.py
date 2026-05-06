@@ -116,6 +116,23 @@ if __name__ == "__main__":
                                           lesion_directory=lesion_directory,
                                           lesionScale=id_lesionScale,
                                           yOffset_lesion=offset)
+
+            # scene_ref = util.render_image(id_model, 
+            #                               id_hairModel, 
+            #                               id_lesion,
+            #                               sel_lesionMat, 
+            #                               sel_lightName, 
+            #                               sel_hair_albedo, 
+            #                               id_fracBlood, 
+            #                               id_mel,
+            #                               id_timePoint, 
+            #                               id_origin_y = 15,   # new
+            #                               IMAGE=True,
+            #                               lesion_directory=lesion_directory, 
+            #                               skin_layers_directory=skin_layers_directory,    ??
+            #                               pre_processed_lesion=True,  
+            #                               verbose=True)
+
             ref_image = mi.render(scene_ref, sensor=cam_top, spp=args.res)
             mi.util.write_bitmap(save_folder + "/image.png", ref_image)
             total_time = time.time() - start_time

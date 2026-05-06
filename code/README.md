@@ -9,7 +9,7 @@
 
 - Clone repo:
    ```
-   git clone https://github.com/DIDSR/ssynth-release.git
+   git clone https://github.com/DIDSR/ssynth-dev.git
    ```
 
 - Setup hugging face token for data download:
@@ -26,3 +26,5 @@ Please see:
 set up data-splits and run the segmentation model used in the paper. 
  * the ```data_generation/``` folder for information of how to generate synthetic skin images
 and associated annotations. 
+ * the ```analysis/``` folder for scripts to visualize images and features distributions of
+   synthetic and patient images.
