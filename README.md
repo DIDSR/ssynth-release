@@ -3,7 +3,7 @@
 ## News
 
 - May 6, 2026: extended IJCARS version available, demonstrating downstream training of diffusion models
-- August 7, 2024: initial release of S-SYNTH
+- August 1, 2024: initial release of S-SYNTH
 
 ## Description
 
