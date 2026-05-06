@@ -56,14 +56,14 @@
 
 
 ## Create Dataset (Optional)
-    - Download raw data from HuggingFace
+- Download raw data from HuggingFace
     ```
     python ../processing/download_ssynth.py --name '10k_hairDensity.zip' --saveDir '../../' --unzip
     python ../processing/download_ssynth.py --name '10k_None.zip' --saveDir '../../' --unzip
     python ../processing/download_split.py --name 'all_tones_real_HAM_1.0_synth_only_1.0_hairDensity_10k' --saveDir '../../'
     ```
     
-    - Run example scripts for creating a HuggingFace dataset from S-SYNTH data to train the model above
+- Run example scripts for creating a HuggingFace dataset from S-SYNTH data to train the model above
     ```
     jupyter notebook create_artifact_dataset.ipynb
     ```
