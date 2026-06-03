@@ -1,7 +1,7 @@
-# S-SYNTH: Knowledge-Based, Synthetic Generation of Skin Images
+# OASIS: Generating Synthetic Skin Artifacts
 
 ## News
-
+- May 26, 2026: OASIS version avaialble
 - May 6, 2026: extended IJCARS version available, demonstrating downstream training of diffusion models
 - August 1, 2024: initial release of S-SYNTH
 
@@ -9,32 +9,37 @@
 
 This repository contains code described in:
 
-1. Andrea Kim, Niloufar Saharkhiz, Elena Sizikova, Miguel Lago, Berkman Sahiner, Jana Delfino, Aldo Badano.
+1. Elena Sizikova, Niloufar Saharkhiz, Jana Delfino, Aldo Badano
+
+   ["OASIS: Generating Synthetic Skin Artifacts"]()
+ 
+   IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) DataCV Workshop 2026
+
+2. Andrea Kim, Niloufar Saharkhiz, Elena Sizikova, Miguel Lago, Berkman Sahiner, Jana Delfino, Aldo Badano.
    
    ["S-SYNTH: Knowledge-Based, Synthetic Generation of Skin Images"](https://arxiv.org/abs/2408.00191)
    
    International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI) 2024
-2. Elena Sizikova, Niloufar Saharkhiz, Andrea Kim, Miguel Lago, Jana Delfino, Aldo Badano
+3. Elena Sizikova, Niloufar Saharkhiz, Andrea Kim, Miguel Lago, Jana Delfino, Aldo Badano
 
    ["Synthetic skin image generation using a physics-based, object-to-image computational pipeline"](https://doi.org/10.1007/s11548-026-03587-2)
  
    International Journal of Computer Assisted Radiology and Surgery (IJCARS) 2026
 
-
-S-SYNTH is an open-source, flexible framework for creation of highly-detailed 3D skin models and digitally rendered synthetic images of diverse human skin tones, with full control of underlying parameters and the image formation process. 
+S-SYNTH is an open-source, flexible framework for creation of highly-detailed 3D skin models and digitally rendered synthetic images of diverse human skin tones, with full control of underlying parameters and the image formation process. OASIS extends S-SYNTH to the generation of five commonly occuring skin artifacts.
 
 ![](./images/overview.png)
 
-S-SYNTH can be used to generate synthetic skin images with annotations (including segmentation masks) with variations in skin appearance, such as skin color, presence of hair, lesion size, skin and lesion colors, and blood fraction among other parameters. We use this framework to study the effect of possible variations on the development and evaluation of AI models for skin lesion segmentation, and show that results obtained using synthetic data follow similar comparative trends as real dermatologic images, while mitigating biases and limitations from existing datasets including small dataset size, mislabeled examples, and lack of diversity.
+S-SYNTH/OASIS can be used to generate synthetic skin images with annotations (including segmentation masks) with variations in skin appearance, such as skin color, presence of hair, lesion size, skin and lesion colors, and blood fraction among other parameters. We use this framework to study the effect of possible variations on the development and evaluation of AI models for skin lesion segmentation, and show that results obtained using synthetic data follow similar comparative trends as real dermatologic images, while mitigating biases and limitations from existing datasets including small dataset size, mislabeled examples, and lack of diversity.
 
 ![](./images/variation.png)
 
-S-SYNTH images can be used to create paired datasets to finetune diffusion models, teaching them concepts about skin imaging:
+S-SYNTH/OASIS images can be used to create paired datasets to finetune diffusion models, teaching them concepts about skin imaging:
 ![](./images/diffusion_experiment.png)
    
 ## Code
 
-**Usage:** S-SYNTH relies on [Houdini](https://www.sidefx.com/) for creating of skin layers and [Mitsuba](https://mitsuba-renderer.org/) for rendering.
+**Usage:** S-SYNTH/OASIS relies on [Houdini](https://www.sidefx.com/) for creating of skin layers and [Mitsuba](https://mitsuba-renderer.org/) for rendering.
 
 Please see `code` directory for:
 
@@ -63,6 +68,16 @@ A visualization of sample resulting images is available in the demo: [https://di
 ## Citation
 
 ```
+@article{sizikova2026oasis,
+  title={OASIS: Generating Synthetic Skin Artifacts},
+  author={Sizikova, Elena and Saharkhiz, Niloufar and Delfino, Jana G., and Badano, Aldo},
+  journal={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) DataCV Workshop},
+  volume={},
+  pages={},
+  year={2026}
+}
+
+
 @article{sizikova2026synthetic,
   title={Knowledge-based in silico models and dataset for the comparative evaluation of mammography AI for a range of breast characteristics, lesion conspicuities and doses},
   author={Sizikova, Elena and Saharkhiz, Niloufar and Kim, Andrea and Lago, Miguel and Delfino, Jana G., and Badano, Aldo},

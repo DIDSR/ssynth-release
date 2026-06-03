@@ -32,7 +32,7 @@
     
     export MODEL_NAME="timbrooks/instruct-pix2pix"
     export DATASET_ID=$CWD"/data/synthetic_dataset/hf_datasets/hair_ssynth_smart_train/"
-    export OUTPUT_DIR=$CWD"/data/outputs/models/"
+    export OUTPUT_DIR=$CWD"/data/outputs/models/finetune_instructpix2pix_hair_smart"
 
     export HF_HUB_OFFLINE=True    # Optional: change to True only when training on a cluster with no internet
     export DISABLE_TELEMETRY=YES  # Optional: disable reporting
@@ -54,13 +54,38 @@
      --cache_dir=$HUGGINFACE_HUB_CACHE
     ```
 
+- Replace `hair_ssynth_smart_train` with other versions: 
+| DATASET_ID | OUTPUT_DIR | Task |
+|---|---|---|
+| hair_ssynth_smart_train | finetune_instructpix2pix_hair_smart | Add hair |
+| hair_remove_ssynth_train | finetune_instructpix2pix_remove_hair | Remove hair |
+| calChart_ssynth_smart_train | finetune_instructpix2pix_calChart_smart | Add calibration chart |
+| calChart_remove_ssynth_train | finetune_instructpix2pix_remove_calChart | Remove calibration chart |
+| bloodVessel_verb_ssynth_train | finetune_instructpix2pix_bloodVessel_smart | Add blood vessel |
+| bloodVessel_remove_ssynth_train | finetune_instructpix2pix_remove_bloodVessel | Remove blood vessel |
+| frame_verb_ssynth_train | finetune_instructpix2pix_frame_smart | Add frame |
+| frame_remove_ssynth_train | finetune_instructpix2pix_remove_frame | Remove frame |
+| ruler1_verb_ssynth_train | finetune_instructpix2pix_ruler1_smart | Add ruler |
+| ruler1_remove_ssynth_train | finetune_instructpix2pix_remove_ruler1 | Remove ruler |
+
 
 ## Create Dataset (Optional)
 - Download raw data from HuggingFace
     ```
     python ../processing/download_ssynth.py --name '10k_hairDensity.zip' --saveDir '../../' --unzip
+    python ../processing/download_ssynth.py --name '10k_calChart.zip' --saveDir '../../' --unzip
+    python ../processing/download_ssynth.py --name '10k_frame.zip' --saveDir '../../' --unzip
+    python ../processing/download_ssynth.py --name '10k_ruler1.zip' --saveDir '../../' --unzip
+    python ../processing/download_ssynth.py --name '10k_vesselDensity.zip' --saveDir '../../' --unzip
+    python ../processing/download_ssynth.py --name '10k_vesselDensity_noVasc.zip' --saveDir '../../' --unzip
+    python ../processing/download_ssynth.py --name '10k_None_noHair.zip' --saveDir '../../' --unzip
     python ../processing/download_ssynth.py --name '10k_None.zip' --saveDir '../../' --unzip
+
     python ../processing/download_split.py --name 'all_tones_real_HAM_1.0_synth_only_1.0_hairDensity_10k' --saveDir '../../'
+    python ../processing/download_split.py --name 'all_tones_real_HAM_1.0_synth_only_1.0_calChart_10k' --saveDir '../../'
+    python ../processing/download_split.py --name 'all_tones_real_HAM_1.0_synth_only_1.0_frame_10k' --saveDir '../../'
+    python ../processing/download_split.py --name 'all_tones_real_HAM_1.0_synth_only_1.0_ruler_10k' --saveDir '../../'
+    python ../processing/download_split.py --name 'all_tones_real_HAM_1.0_synth_only_1.0_vesselDensity_10k' --saveDir '../../'
     ```
     
 - Run example scripts for creating a HuggingFace dataset from S-SYNTH data to train the model above

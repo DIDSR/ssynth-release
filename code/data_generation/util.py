@@ -5,38 +5,23 @@ import config
 import trimesh
 import math
 import json
-
-
-def preprocess_lesion(lesion_directory, id_lesion, id_timePoint):
-    print('load lesion from ' + lesion_directory)
-    uniformScale = 1  # uniformly scale the models
-    lesionScale = 1.5
-
-    myMesh = trimesh.load(lesion_directory + '/lesion' + str(
-                                   id_lesion) + '_T' + f'{id_timePoint:03d}' + '.obj')
-    myMesh.apply_scale(uniformScale * lesionScale)
-    myMesh.apply_translation([-myMesh.bounds[0, 0] - myMesh.extents[0] / 2.0,
-                              -myMesh.bounds[0, 1] - myMesh.extents[1] / 2.0,
-                              -myMesh.bounds[0, 2]])
-    myMesh.fix_normals()
+         
+def get_frame(id_origin_y):
+    radius = id_origin_y - 2
+    tube_radius = 2.0 
+    major_sections = 256
+    minor_sections = 256
+    mesh = trimesh.creation.torus(radius, tube_radius, major_sections, minor_sections)
+    angle = math.pi / 2
+    direction = [1, 0, 0]
+    center = [0, 0, 0]
+    rot_matrix = trimesh.transformations.rotation_matrix(angle, direction, center)
+    mesh.apply_transform(rot_matrix)
+    print('Frame created ...')
+    os.makedirs(config.sDir_materials + 'objects', exist_ok=True)
+    mesh.export(config.sDir_materials + 'objects/frame.obj')
+    return
     
-    filename = str(id_lesion) + '_T' + f'{id_timePoint:03d}'
-
-    print('save lesion mesh file to' + config.sDir +'/objects/preprocessed_lesions' + '/mesh_' + filename + '.obj')
-    os.makedirs(config.sDir +'/objects/preprocessed_lesions/', exist_ok=True)
-    with open(config.sDir +'/objects/preprocessed_lesions' + '/mesh_' + filename + '.obj', 'w') as f:
-        f.write(trimesh.exchange.export.export_obj(myMesh, include_normals=True)) 
-    f.close()
-    
-    myMesh_meta = {
-        "extents": myMesh.extents.tolist(),
-        "bounds": myMesh.bounds.tolist()
-    }
-    with open(config.sDir +'/objects/preprocessed_lesions' + '/mesh_' + filename + '_meta.json', 'w') as f:
-        json.dump(myMesh_meta, f)
-    f.close()
-
-
 def render_image(id_model, id_hairModel, id_lesion,
                  sel_lesionMat, sel_lightName, sel_hair_albedo, 
                  id_fracBlood, id_mel,
@@ -44,13 +29,13 @@ def render_image(id_model, id_hairModel, id_lesion,
                  id_frame=-1, id_calChart=-1, calChart_params=[], id_ruler=-1, ruler_params=[],
                  saveDir='', IMAGE=True,
                  lesion_directory='', skin_layers_directory=config.sDir_layers_orig,
-                 pre_processed_lesion=True,  verbose=True, no_vasculature=False):
+                pre_processed_lesion=True,  verbose=True, no_vasculature=False):
     
     uniformScale = 1  # uniformly scale the models
     yOffset = -1.5 # this is to counter the y offset of the models in houdini which is not centered at 0.
     roomSize = 20  # current skin size is 20x20x5mm, so the room should be large enough to fit the skin
     xtScale = 0.1  # extinction scale. 1 unit in mitsuba/houdini = 1mm, and optical coefficients are in inverse cm
-    lesionScale = 1.5
+    lesionScale=1.5
     
     if verbose:
         print("Model id = " + str(id_model))
@@ -61,7 +46,7 @@ def render_image(id_model, id_hairModel, id_lesion,
         print("mitsuba variant " + str(mi.variant()))
         print("lesionScale " + str(lesionScale))
         print("sel_lightName " + str(sel_lightName))
-        # print("Selected artifacts --> " + "Frame:" + str(id_frame) + ", calChart:" + str(id_calChart) + ", ruler:" + str(id_ruler) )
+        print("Selected artifacts --> " + "Frame:" + str(id_frame) + ", calChart:" + str(id_calChart) + ", ruler:" + str(id_ruler) )
         print()
 
     # testing material for hair
@@ -85,22 +70,52 @@ def render_image(id_model, id_hairModel, id_lesion,
     C = 2558.8
     iorDerm = A + (B / (500 ** 2)) + (C / (500 ** 4))
 
+    #frame = get_frame(id_origin_y) #generate black frame around the image
+
     scene = {'type': 'scene',
              'integrator': {'type': 'volpathmis',
                             'max_depth': 1000}}
             
-    print('load lesion from ' +  config.sDir +'/objects/preprocessed_lesions')
+    if pre_processed_lesion == False:
+        print('load lesion from ' + lesion_directory)
+    
+        myMesh = trimesh.load(lesion_directory + '/lesion' + str(
+                                       id_lesion) + '_T' + f'{id_timePoint:03d}' + '.obj')
+        myMesh.apply_scale(uniformScale * lesionScale)
+        myMesh.apply_translation([-myMesh.bounds[0, 0] - myMesh.extents[0] / 2.0,
+                                  -myMesh.bounds[0, 1] - myMesh.extents[1] / 2.0,
+                                  -myMesh.bounds[0, 2]])
+        myMesh.fix_normals()
+        
+        filename = str(id_lesion) + '_T' + f'{id_timePoint:03d}'
+
+        print('save lesion mesh file to' + lesion_directory)
+        os.makedirs(config.sDir_materials +'/objects/preprocessed_lesions/', exist_ok=True)
+        with open(config.sDir_materials +'/objects/preprocessed_lesions' + '/mesh_' + filename + '.obj', 'w') as f:
+            f.write(trimesh.exchange.export.export_obj(myMesh, include_normals=True)) 
+        f.close()
+        
+        myMesh_meta = {
+            "extents": myMesh.extents.tolist(),
+            "bounds": myMesh.bounds.tolist()
+        }
+        with open(config.sDir_materials +'/objects/preprocessed_lesions' + '/mesh_' + filename + '_meta.json', 'w') as f:
+            json.dump(myMesh_meta, f)
+        f.close()
+
+    # if pre_processed_lesion == True: #loading the pre-processed lesion mesh object 
+    print('load lesion from ' +  config.sDir_materials +'/objects/preprocessed_lesions')
     filename = str(id_lesion) + '_T' + f'{id_timePoint:03d}'
     
-    with open(config.sDir +'/objects/preprocessed_lesions' + '/mesh_' + filename + '_meta.json', 'r') as f:
+    with open(config.sDir_materials +'/objects/preprocessed_lesions' + '/mesh_' + filename + '_meta.json', 'r') as f:
         myMesh = json.load(f)
     f.close()
     
     tr=[0,2.0,0]
     lesion_translation = [tr[0], tr[1]-0.5*myMesh["extents"][1], 0.5*(myMesh["bounds"][0][2]-myMesh["bounds"][1][2])]
-        
+    
     scene['lesion'] = {'type': 'obj',
-                       'filename': config.sDir +'/objects/preprocessed_lesions' + '/mesh_' + filename + '.obj',
+                       'filename': config.sDir_materials +'/objects/preprocessed_lesions' + '/mesh_' + filename + '.obj',
                        'face_normals': True,
                        'to_world': mi.ScalarTransform4f.scale(uniformScale * lesionScale).translate(lesion_translation).rotate(
                            [0, 0, 0], 0),
@@ -115,11 +130,11 @@ def render_image(id_model, id_hairModel, id_lesion,
             'type': 'homogeneous',
             'albedo': {
                 'type': 'spectrum',
-                'filename': config.sDir + 'opticalMaterials/' + str(sel_lesionMat) + '_alb.spd'
+                'filename': config.sDir_materials + 'opticalMaterials/' + str(sel_lesionMat) + '_alb.spd'
             },
             'sigma_t': {
                 'type': 'spectrum',
-                'filename': config.sDir + 'opticalMaterials/' + str(sel_lesionMat) + '_ext.spd'
+                'filename': config.sDir_materials + 'opticalMaterials/' + str(sel_lesionMat) + '_ext.spd'
             },
             'scale': xtScale
         }
@@ -139,7 +154,6 @@ def render_image(id_model, id_hairModel, id_lesion,
             if verbose:
                 print('not using hair') 
         else:
-            print('hair ' + skin_layers_directory + 'hair_' + f'{id_hairModel:03d}' + '.obj')
             scene['hair'] = {
                 'type': 'obj',
                 'filename': skin_layers_directory + 'hair_' + f'{id_hairModel:03d}' + '.obj',
@@ -171,11 +185,11 @@ def render_image(id_model, id_hairModel, id_lesion,
                 'type': 'homogeneous',
                 'albedo': {
                     'type': 'spectrum',
-                    'filename': config.sDir + 'opticalMaterials/epidermis_alb_mel' + str(id_mel) + '.spd'
+                    'filename': config.sDir_materials + 'opticalMaterials/epidermis_alb_mel' + str(id_mel) + '.spd'
                 },
                 'sigma_t': {
                     'type': 'spectrum',
-                    'filename': config.sDir + 'opticalMaterials/epidermis_ext_mel' + str(id_mel) + '.spd'
+                    'filename': config.sDir_materials + 'opticalMaterials/epidermis_ext_mel' + str(id_mel) + '.spd'
                 },
                 'scale': xtScale
             }
@@ -195,11 +209,11 @@ def render_image(id_model, id_hairModel, id_lesion,
                     'type': 'homogeneous',
                     'albedo': {
                         'type': 'spectrum',
-                        'filename': config.sDir + 'opticalMaterials/blood_HbO2_alb' + '.spd'
+                        'filename': config.sDir_materials + 'opticalMaterials/blood_HbO2_alb' + '.spd'
                     },
                     'sigma_t': {
                         'type': 'spectrum',
-                        'filename': config.sDir + 'opticalMaterials/blood_HbO2_ext' + '.spd'
+                        'filename': config.sDir_materials + 'opticalMaterials/blood_HbO2_ext' + '.spd'
                     },
                     'scale': xtScale
                 }
@@ -216,11 +230,11 @@ def render_image(id_model, id_hairModel, id_lesion,
                 'type': 'homogeneous',
                 'albedo': {
                     'type': 'spectrum',
-                    'filename': config.sDir + 'opticalMaterials/dermis_alb_fB' + str(id_fracBlood) + '.spd'
+                    'filename': config.sDir_materials + 'opticalMaterials/dermis_alb_fB' + str(id_fracBlood) + '.spd'
                 },
                 'sigma_t': {
                     'type': 'spectrum',
-                    'filename': config.sDir + 'opticalMaterials/dermis_ext_fB' + str(id_fracBlood) + '.spd'
+                    'filename': config.sDir_materials + 'opticalMaterials/dermis_ext_fB' + str(id_fracBlood) + '.spd'
                 },
                 'scale': xtScale
             }
@@ -238,11 +252,11 @@ def render_image(id_model, id_hairModel, id_lesion,
                 'type': 'homogeneous',
                 'albedo': {
                     'type': 'spectrum',
-                    'filename': config.sDir + 'opticalMaterials/hypo_alb' + '.spd'
+                    'filename': config.sDir_materials + 'opticalMaterials/hypo_alb' + '.spd'
                 },
                 'sigma_t': {
                     'type': 'spectrum',
-                    'filename': config.sDir + 'opticalMaterials/hypo_ext' + '.spd'
+                    'filename': config.sDir_materials + 'opticalMaterials/hypo_ext' + '.spd'
                 },
                 'scale': xtScale
             }
@@ -277,6 +291,103 @@ def render_image(id_model, id_hairModel, id_lesion,
                 }
             }
         }
+
+        if id_frame == -1:
+            if verbose:
+                print('not using frame')
+        else:
+            scene['frame'] = {
+                        'type': 'obj',
+                        'filename': config.sDir_materials + 'objects/frame.obj',
+                        'to_world': mi.ScalarTransform4f.scale(uniformScale).translate([0, (yOffset+4)/uniformScale, 0]).rotate([0, 0, 0], 0),
+                        'material': {
+                            'type': 'diffuse',
+                            'reflectance': {
+                                'type': 'rgb',
+                                'value': [0.0, 0.0, 0.0]
+                            }
+                        }
+                        }
+            
+        if id_calChart == -1:
+            if verbose:
+                print('not using calibration chart')
+        else:
+            #calChart_params = [int(x)  for x in calChart_params.strip("").strip("[").strip("]").split(",")]
+            calChart_x = calChart_params [0]
+            calChart_z = calChart_params [1]
+            calChart_radius = calChart_params [2]
+            calChart_color = calChart_params [3]
+            if calChart_color == 0:
+                value = [250/255, 95/255, 45/255] #orange
+            else:
+                value = [22/255, 115/255, 225/255] #blue
+            scene['calibration_chart'] = {
+                'type': 'sphere',
+                'to_world': mi.ScalarTransform4f.scale(uniformScale).translate([0, 0, 0]).rotate([0, 0, 0], 0),
+                'radius': calChart_radius/20*id_origin_y,
+                'center': [(calChart_x-(id_origin_y-11)/2)/uniformScale, (yOffset+5)/uniformScale, calChart_z/uniformScale],
+                'material': {
+                    'type': 'diffuse',
+                    'reflectance': {
+                        'type': 'rgb',
+                        'value': value#[250/255, 95/255, 45/255] #[234, 135, 45] orange #[22, 145, 200] blue
+                    }
+                }
+                }
+
+        if id_ruler == -1:
+            if verbose:
+                print('not using ruler')
+        else:
+            #ruler_params = [int(x) for x in ruler_params.strip("").strip("[").strip("]").split(",")]
+            ruler_x = ruler_params[0]
+            ruler_z = ruler_params[1]
+            idx = 0
+            num_columns = 15
+            for col in list(range(num_columns)):
+                name = 'line' + str(idx)
+                scene[name] = {
+                'type': 'rectangle',
+                'to_world': mi.ScalarTransform4f.scale([uniformScale/20, uniformScale/2, uniformScale/4]).translate([(0.5*20)*col+(ruler_x*20),
+                            yOffset+(4*2)/uniformScale, ruler_z*4]).rotate([1, 0, 0], 90), #default cube size is 2 mm
+                'bsdf': {
+                        'type': 'twosided',
+                        'material': {
+                        'type': 'diffuse',
+                        'reflectance': {
+                            'type': 'rgb',
+                            'value': [0.0, 0.0, 0.0] #[0, 0, 0]
+                        }
+                    },
+                },
+                }
+                idx += 1
+                            
+            scene['line_h'] = {
+            'type': 'rectangle',
+            'to_world': mi.ScalarTransform4f.scale([uniformScale*4.5, uniformScale, uniformScale/20]).translate([(ruler_x+3)/4.5, yOffset+4/uniformScale,
+                      (ruler_z)*20]).rotate([1,0, 0], 89), #default cube size is 2 mm
+            # 'material': {
+            #     'type': 'diffuse',
+            #     'reflectance': {
+            #         'type': 'rgb',
+            #         'value': [0.5, 0.0, 0.0]  #[0, 0, 0]
+            #     }
+            # },
+                'bsdf': {
+                    'type': 'twosided',
+                    'material': {
+                        'type': 'diffuse',
+                        'reflectance': {
+                            'type': 'rgb',
+                            'value': [0.0, 0.0, 0.0]  # [0, 0, 0]
+                        }
+                    },
+                },
+
+                # flip_normals: True,
+            }
 
     else:
 
@@ -385,6 +496,21 @@ def get_l_light():
 def get_l_hairAlbedoIndex():
     l_hairAlbedoIndex = [0, 1, 2]
     return l_hairAlbedoIndex
+
+def get_calChart_params():
+    calChart_params = {
+        "z": list(range(-8,-4)) + list(range(5, 9)), #center of the calibration chart in the z direction
+        "x": list(range(-7,-5)) + list(range(6, 8)), #center of the calibration chart in the x direction
+        "radius": list(range(2,5)) #radius of the calibrartion chart
+    }
+    return calChart_params
+
+def get_ruler_params():
+    ruler_params = {
+        "z": list(range(-7,-3)) + list(range(4, 7)), 
+        "x": list(range(-8,2)),
+    }
+    return ruler_params
 
 def get_param_combo(light_id=None):
     l_model = get_l_model()
