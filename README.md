@@ -1,7 +1,7 @@
 # OASIS: Generating Synthetic Skin Artifacts
 
 ## News
-- May 26, 2026: OASIS version avaialble
+- June 2, 2026: OASIS code added (initial release)
 - May 6, 2026: extended IJCARS version available, demonstrating downstream training of diffusion models
 - August 1, 2024: initial release of S-SYNTH
 
@@ -41,15 +41,13 @@ S-SYNTH/OASIS images can be used to create paired datasets to finetune diffusion
 
 **Usage:** S-SYNTH/OASIS relies on [Houdini](https://www.sidefx.com/) for creating of skin layers and [Mitsuba](https://mitsuba-renderer.org/) for rendering.
 
-Please see `code` directory for:
+Please see `code` directory for
 
 - Code for generating materials, skin models, and synthetic skin lesions
-- Training of a segmentation model using associated images
-- Evaluating performance on real skin images from [HAM10K](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T) and [ISIC18](https://challenge.isic-archive.com/data/) datasets.
-
+- Creating paired datasets for training diffusion models to add and remove artifacts.
 ## Data
 
-Associated data for this repository, including pre-generated synthetic skin examples and their masks, can be found in a Hugging face dataset repo ([S-SYNTH data](https://huggingface.co/datasets/didsr/ssynth_data)).
+Associated data for this repository, including pre-generated synthetic skin examples and their masks, can be found in the Hugging face dataset repo ([S-SYNTH data](https://huggingface.co/datasets/didsr/ssynth_data)).
 
 <!--## Repository Structure
 
@@ -115,5 +113,3 @@ This software and documentation (the "Software") were developed at the Food and 
 *-equal contribution
     
 The IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPRW) DataCV Workshop and Challenge 2026
-
-Code/data/paper coming soon!
