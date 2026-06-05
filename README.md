@@ -11,7 +11,7 @@ This repository contains code described in:
 
 1. Elena Sizikova, Niloufar Saharkhiz, Jana Delfino, Aldo Badano
 
-   ["OASIS: Generating Synthetic Skin Artifacts"]()
+   ["OASIS: Generating Synthetic Skin Artifacts"](https://openaccess.thecvf.com/content/CVPR2026W/DataCV/papers/Sizikova_OASIS_Generating_Synthetic_Skin_Artifacts_CVPRW_2026_paper.pdf)
  
    IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) DataCV Workshop 2026
 
