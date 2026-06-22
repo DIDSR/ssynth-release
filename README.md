@@ -1,7 +1,7 @@
 # OASIS: Generating Synthetic Skin Artifacts
 
 ## News
-- May 26, 2026: OASIS version avaialble
+- June 2, 2026: OASIS code added (initial release)
 - May 6, 2026: extended IJCARS version available, demonstrating downstream training of diffusion models
 - August 1, 2024: initial release of S-SYNTH
 
@@ -41,15 +41,13 @@ S-SYNTH/OASIS images can be used to create paired datasets to finetune diffusion
 
 **Usage:** S-SYNTH/OASIS relies on [Houdini](https://www.sidefx.com/) for creating of skin layers and [Mitsuba](https://mitsuba-renderer.org/) for rendering.
 
-Please see `code` directory for:
+Please see `code` directory for
 
 - Code for generating materials, skin models, and synthetic skin lesions
-- Training of a segmentation model using associated images
-- Evaluating performance on real skin images from [HAM10K](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T) and [ISIC18](https://challenge.isic-archive.com/data/) datasets.
-
+- Creating paired datasets for training diffusion models to add and remove artifacts.
 ## Data
 
-Associated data for this repository, including pre-generated synthetic skin examples and their masks, can be found in a Hugging face dataset repo ([S-SYNTH data](https://huggingface.co/datasets/didsr/ssynth_data)).
+Associated data for this repository, including pre-generated synthetic skin examples and their masks, can be found in the Hugging face dataset repo ([S-SYNTH data](https://huggingface.co/datasets/didsr/ssynth_data)).
 
 <!--## Repository Structure
 
@@ -107,7 +105,7 @@ A visualization of sample resulting images is available in the demo: [https://di
 <sub>
 This software and documentation (the "Software") were developed at the Food and Drug Administration (FDA) by employees of the Federal Government in the course of their official duties. Pursuant to Title 17, Section 105 of the United States Code, this work is not subject to copyright protection and is in the public domain. Permission is hereby granted, free of charge, to any person obtaining a copy of the Software, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, or sell copies of the Software or derivatives, and to permit persons to whom the Software is furnished to do so. FDA assumes no responsibility whatsoever for use by other parties of the Software, its source code, documentation or compiled executables, and makes no guarantees, expressed or implied, about its quality, reliability, or any other characteristic. Further, use of this code in no way implies endorsement by the FDA or confers any advantage in regulatory decisions. Although this software can be redistributed and/or modified freely, we ask that any derivative works bear some notice that they are derived from it, and any modified versions bear some notice that they have been modified.
 </sub>
-=======
+
 "_OASIS: Generating Synthetic Skin Artifacts_"
 
 [Elena Sizikova*](https://esizikova.github.io/), [Niloufar Saharkhiz*](https://www.linkedin.com/in/niloufar-saharkhiz/), [Jana G. Delfino](https://www.linkedin.com/in/janadelfino/), [Aldo Badano](https://www.linkedin.com/in/aldobadano/)
