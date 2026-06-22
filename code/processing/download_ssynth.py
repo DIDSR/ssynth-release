@@ -13,7 +13,7 @@ args = parser.parse_args()
 print("downloading data from huggingface...")
 print("saving to " + str(args.saveDir))
 hf_hub_download(
-    repo_id="didsr/ssynth_data-test",
+    repo_id="didsr/ssynth_data",
     use_auth_token=True,
     repo_type="dataset",
     local_dir=args.saveDir,  # data will be saved here
