@@ -9,7 +9,7 @@
 
 - Clone repo:
    ```
-   git clone https://github.com/DIDSR/ssynth-dev.git
+   git clone -b OASIS https://github.com/DIDSR/ssynth-release.git
    ```
 
 - Setup hugging face token for data download:
